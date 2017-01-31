@@ -1,26 +1,32 @@
-import User.TestApi;
+import api.BookApi;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.eclipse.jetty.servlets.CrossOriginFilter;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
-import java.util.EnumSet;
+import org.skife.jdbi.v2.DBI;
+import template.Book.BookDao;
+import template.Constant;
 
 public class BackendService extends Application<Configuration> {
-
     public static void main(String[] args) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        Constant.dbi = new DBI("jdbc:mysql://localhost/blog?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "delivery");
         new BackendService().run(args);
     }
 
-    public void run(Configuration configuration, Environment environment) throws Exception {
-        final TestApi testApi = new TestApi();
+    @Override
+    public void initialize(Bootstrap<Configuration> bootstrap) {
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html", "intro"));
+        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/explore", "main.html", "explore"));
+    }
 
-        environment.jersey().register(testApi);
+    @Override
+    public void run(Configuration configuration, Environment environment) {
+        final BookApi bookApi = new BookApi();
 
-        FilterRegistration.Dynamic filter = environment.servlets().addFilter("CORSFilter", CrossOriginFilter.class);
+        bookApi.setDbi(Constant.dbi.onDemand(BookDao.class));
 
-        filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
+        environment.jersey().register(bookApi);
     }
 }

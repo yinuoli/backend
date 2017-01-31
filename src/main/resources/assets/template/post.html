@@ -1,0 +1,13 @@
+<%_.each(articles, function (article) {%>
+<div id="<%=article.id%>" class="w3-card-4 w3-margin-bottom">
+    <header class="w3-container w3-light-grey">
+        <h3><%=article.title%></h3>
+    </header>
+    <div class="w3-container w3-white">
+        <p><%=article.content%></p>
+    </div>
+    <button class="w3-btn-block w3-dark-grey">view</button>
+    <button onclick="deletePost('<%=article.id%>')" class="w3-btn-block w3-dark-grey" data-id="<%=article.id%>">delete
+    </button>
+</div>
+<%});%>
