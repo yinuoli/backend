@@ -1,3 +1,4 @@
+import api.BookApi;
 import api.UserApi;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -5,6 +6,7 @@ import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
+import template.Book.BookDao;
 import template.Constant;
 import template.User.UserDao;
 
@@ -24,9 +26,12 @@ public class BackendService extends Application<Configuration> {
     @Override
     public void run(Configuration configuration, Environment environment) {
         final UserApi userApi = new UserApi();
+        final BookApi bookApi = new BookApi();
 
         userApi.setDao(Constant.dbi.onDemand(UserDao.class));
+        bookApi.setDao(Constant.dbi.onDemand(BookDao.class));
 
         environment.jersey().register(userApi);
+        environment.jersey().register(bookApi);
     }
 }
