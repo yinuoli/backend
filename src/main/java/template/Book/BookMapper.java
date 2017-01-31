@@ -8,6 +8,12 @@ import java.sql.SQLException;
 
 public class BookMapper implements ResultSetMapper<Book> {
     public Book map(int i, ResultSet resultSet, StatementContext statementContext) throws SQLException {
-        return null;
+        return new Book(resultSet.getString("id"),
+                resultSet.getString("title"),
+                resultSet.getString("author"),
+                resultSet.getString("code"),
+                resultSet.getDouble("price"),
+                resultSet.getString("description"),
+                resultSet.getString("seller"));
     }
 }

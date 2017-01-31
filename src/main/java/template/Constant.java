@@ -9,6 +9,7 @@ public class Constant {
     public static String FAIL = "FAIL";
     public static String NULL = "NULL";
     public static String EMPTY = "EMPTY";
+    public static String NOTVALID = "NOT VALID";
     public static DBI dbi;
 
     public static String generateUUID() {
