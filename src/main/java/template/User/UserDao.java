@@ -17,6 +17,9 @@ public interface UserDao {
     @SqlQuery("select * from user where email = :email")
     User getUserByEmail(@Bind("email") String email);
 
+    @SqlQuery("select * from user where id = :id")
+    User getUserById(@Bind("id") String id);
+
     @SqlQuery("select * from user")
     List<User> getAllUser();
 }

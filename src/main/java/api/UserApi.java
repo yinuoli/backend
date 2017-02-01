@@ -85,6 +85,10 @@ public class UserApi {
     public String getMyBooks(@PathParam("user_id") String userId) {
         String result;
         try {
+            User user = userDao.getUserById(userId);
+            if (!user.validate()) {
+                throw new Exception();
+            }
             List<Book> books = bookDao.getBooksByUser(userId);
             if (books.size() == 0) {
                 return Constant.EMPTY;

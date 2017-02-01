@@ -29,7 +29,7 @@ public class BackendService extends Application<Configuration> {
         final BookApi bookApi = new BookApi();
 
         userApi.setDao(Constant.dbi.onDemand(UserDao.class), Constant.dbi.onDemand(BookDao.class));
-        bookApi.setDao(Constant.dbi.onDemand(BookDao.class));
+        bookApi.setDao(Constant.dbi.onDemand(BookDao.class), Constant.dbi.onDemand(UserDao.class));
 
         environment.jersey().register(userApi);
         environment.jersey().register(bookApi);

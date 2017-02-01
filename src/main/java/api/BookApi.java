@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import template.Book.Book;
 import template.Book.BookDao;
 import template.Constant;
+import template.User.User;
+import template.User.UserDao;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,6 +19,7 @@ import java.util.List;
 public class BookApi {
     private static final Logger LOG = LoggerFactory.getLogger(BookApi.class);
     private BookDao bookDao;
+    private UserDao userDao;
 
     @Path("/all")
     @GET
@@ -50,6 +53,10 @@ public class BookApi {
             if (!book.validate()) {
                 throw new Exception();
             }
+            User user = userDao.getUserById(book.getSeller());
+            if (!user.validate()) {
+                throw new Exception();
+            }
             bookDao.insert(book);
         } catch (Exception e) {
             LOG.error(e.getMessage());
@@ -77,7 +84,8 @@ public class BookApi {
         return Constant.SUCCESS;
     }
 
-    public void setDao(BookDao bookDao) {
+    public void setDao(BookDao bookDao, UserDao userDao) {
         this.bookDao = bookDao;
+        this.userDao = userDao;
     }
 }

@@ -55,6 +55,7 @@
             user.password = $('#password_log').val();
             user = JSON.stringify(user);
             $.post('/api/user/login', user, function (data) {
+                sessionStorage.setItem("user", data);
                 alert(data);
             });
         });
@@ -82,7 +83,7 @@
             book.code = $('#code').val();
             book.price = parseFloat($('#price').val());
             book.description = $('#description').val();
-            book.seller = $('#seller').val();
+            book.seller = sessionStorage.getItem("user");
             book = JSON.stringify(book);
             $.post('/api/book/post', book, function (data) {
                 alert(data);
@@ -95,7 +96,7 @@
     <button id="all_book">all book</button>
     <script>
         $('#my_book').on('click', function () {
-            $.get('/api/user/my_book/' + $('#user_id').val(), function (data) {
+            $.get('/api/user/my_book/' + sessionStorage.getItem("user"), function (data) {
                 alert(data);
             });
         });
