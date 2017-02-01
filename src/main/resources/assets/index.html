@@ -3,13 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/w3.css">
+
     <script src="js/jquery.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body>
-<button>click</button>
-<script>
-    init();
-</script>
+<form>
+    <form class="w3-container">
+        <label for="email">email</label>
+        <input id="email" class="w3-input" type="email">
+
+        <label for="name">user name</label>
+        <input id="name" class="w3-input" type="text">
+
+        <label for="password">password</label>
+        <input id="password" class="w3-input" type="text">
+    </form>
+    <button id="register">register</button>
+    <button id="all_user">all users</button>
+    <script>
+        $('#register').on('click', function () {
+            var user = {};
+            user.email = $('#email').val();
+            user.name = $('#name').val();
+            user.password = $('#password').val();
+            user = JSON.stringify(user);
+            $.post("/api/user/register", user, function (data) {
+                alert(data);
+            });
+        });
+        $('#all_user').on('click', function () {
+            $.get('/api/user/all', function (data) {
+                alert(data);
+            });
+        });
+    </script>
+    <form>
+        <label for="email_log">email</label>
+        <input id="email_log" class="w3-input" type="email">
+
+        <label for="password_log">password</label>
+        <input id="password_log" class="w3-input" type="text">
+    </form>
+    <button id="log_in">log in</button>
+    <script>
+        $('#log_in').on('click', function () {
+            var user = {};
+            user.email = $('#email_log').val();
+            user.password = $('#password_log').val();
+            user = JSON.stringify(user);
+            $.post('/api/user/login', user, function (data) {
+                alert(data);
+            });
+        });
+    </script>
+    <form>
+        <label for="title">title</label>
+        <input id="title" class="w3-input" type="text">
+        <label for="author">author</label>
+        <input id="author" class="w3-input" type="text">
+        <label for="code">code</label>
+        <input id="code" class="w3-input" type="text">
+        <label for="price">price</label>
+        <input id="price" class="w3-input" type="number">
+        <label for="description">description</label>
+        <input id="description" class="w3-input" type="text">
+        <label for="seller">seller</label>
+        <input id="seller" class="w3-input" type="text">
+    </form>
+    <button id="post_book">post book</button>
+    <script>
+        $('#post_book').on('click', function () {
+            var book = {};
+            book.title = $('#title').val();
+            book.author = $('#author').val();
+            book.code = $('#code').val();
+            book.price = parseFloat($('#price').val());
+            book.description = $('#description').val();
+            book.seller = $('#seller').val();
+            book = JSON.stringify(book);
+            $.post('/api/book/post', book, function (data) {
+                alert(data);
+            });
+        });
+    </script>
+    <label for="user_id">user id</label>
+    <input id="user_id" class="w3-input" type="text">
+    <button id="my_book">my book</button>
+    <button id="all_book">all book</button>
+    <script>
+        $('#my_book').on('click', function () {
+            $.get('/api/user/my_book/' + $('#user_id').val(), function (data) {
+                alert(data);
+            });
+        });
+        $('#all_book').on('click', function () {
+            $.get('/api/book/all', function (data) {
+                alert(data);
+            });
+        })
+    </script>
+</form>
 </body>
 </html>

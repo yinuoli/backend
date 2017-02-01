@@ -10,19 +10,20 @@ import template.Constant;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import java.util.List;
 
 @Path("/book")
 public class BookApi {
-    private BookDao dao;
     private static final Logger LOG = LoggerFactory.getLogger(BookApi.class);
+    private BookDao bookDao;
 
     @Path("/all")
     @GET
     public String getAllBooks() {
         String result;
         try {
-            List<Book> list = dao.getAllBook();
+            List<Book> list = bookDao.getAllBook();
             Gson gson = new Gson();
             result = gson.toJson(list);
             if (result == null) {
@@ -45,10 +46,11 @@ public class BookApi {
             if (book == null) {
                 throw new NullPointerException();
             }
+            book.setId(Constant.generateUUID());
             if (!book.validate()) {
                 throw new Exception();
             }
-            dao.insert(book);
+            bookDao.insert(book);
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
@@ -56,7 +58,26 @@ public class BookApi {
         return Constant.SUCCESS;
     }
 
-    public void setDao(BookDao dao) {
-        this.dao = dao;
+    @Path("/delete/{user_id}/{book_id}")
+    @GET
+    public String deleteBook(@PathParam("user_id") String userId, @PathParam("book_id") String bookId) {
+        try {
+            Book book = bookDao.getBookById(bookId);
+            if (!book.validate()) {
+                return Constant.FAIL;
+            }
+            if (!book.getSeller().equals(userId)) {
+                return Constant.FAIL;
+            }
+            bookDao.deleteBookById(bookId);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return Constant.SUCCESS;
+    }
+
+    public void setDao(BookDao bookDao) {
+        this.bookDao = bookDao;
     }
 }

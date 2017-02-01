@@ -3,17 +3,44 @@ package api;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import template.Book.Book;
+import template.Book.BookDao;
 import template.Constant;
 import template.User.User;
 import template.User.UserDao;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import java.util.List;
 
 @Path("/user")
 public class UserApi {
-    private UserDao dao;
     private static final Logger LOG = LoggerFactory.getLogger(UserApi.class);
+    private UserDao userDao;
+    private BookDao bookDao;
+
+    @Path("/all")
+    @GET
+    public String getAllUser() {
+        String result;
+        try {
+            List<User> list = userDao.getAllUser();
+            if (list.size() == 0) {
+                return Constant.EMPTY;
+            }
+            Gson gson = new Gson();
+            result = gson.toJson(list);
+            if (result == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
 
     @Path("/register")
     @POST
@@ -26,7 +53,7 @@ public class UserApi {
             if (!user.validate()) {
                 return Constant.NOTVALID;
             }
-            dao.insert(user);
+            userDao.insert(user);
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
@@ -42,7 +69,7 @@ public class UserApi {
         User user;
         try {
             potential = gson.fromJson(request, User.class);
-            user = dao.getUserByEmail(potential.getEmail());
+            user = userDao.getUserByEmail(potential.getEmail());
             if (!user.getPassword().equals(potential.getPassword())) {
                 return Constant.FAIL;
             }
@@ -53,7 +80,29 @@ public class UserApi {
         return user.getId();
     }
 
-    public void setDao(UserDao dao) {
-        this.dao = dao;
+    @Path("/my_book/{user_id}")
+    @GET
+    public String getMyBooks(@PathParam("user_id") String userId) {
+        String result;
+        try {
+            List<Book> books = bookDao.getBooksByUser(userId);
+            if (books.size() == 0) {
+                return Constant.EMPTY;
+            }
+            Gson gson = new Gson();
+            result = gson.toJson(books);
+            if (result == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
+
+    public void setDao(UserDao userDao, BookDao bookDao) {
+        this.userDao = userDao;
+        this.bookDao = bookDao;
     }
 }
