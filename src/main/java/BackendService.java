@@ -20,7 +20,8 @@ public class BackendService extends Application<Configuration> {
     @Override
     public void initialize(Bootstrap<Configuration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html", "intro"));
-        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/explore", "main.html", "explore"));
+        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/login", "login.html", "login"));
+        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/sign_up", "register.html", "register"));
     }
 
     @Override

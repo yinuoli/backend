@@ -64,20 +64,23 @@ public class UserApi {
     @Path("/login")
     @POST
     public String login(String request) {
-        User potential;
         Gson gson = new Gson();
-        User user;
+        String result;
         try {
-            potential = gson.fromJson(request, User.class);
-            user = userDao.getUserByEmail(potential.getEmail());
+            User potential = gson.fromJson(request, User.class);
+            User user = userDao.getUserByEmail(potential.getEmail());
             if (!user.getPassword().equals(potential.getPassword())) {
                 return Constant.FAIL;
+            }
+            result = gson.toJson(user);
+            if (result == null) {
+                throw new NullPointerException();
             }
         } catch (Exception e) {
             LOG.error(e.getMessage());
             return Constant.FAIL;
         }
-        return user.getId();
+        return result;
     }
 
     @Path("/my_book/{user_id}")
