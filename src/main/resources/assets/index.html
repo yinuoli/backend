@@ -10,7 +10,7 @@
 </head>
 <body class="w3-light-grey">
 <header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
-    <h1 class="w3-half">Book Trader</h1>
+    <h1 class="w3-half"><a href="/" style="text-decoration: none">Book Trader</a></h1>
     <div class="w3-right w3-row-padding">
         <div class="w3-half">
             <button id="sign_in" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/login';">Sign In</button>
@@ -18,15 +18,25 @@
         <div class="w3-half">
             <button id="sign_up" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/sign_up';">Sign Up</button>
         </div>
-        <p id="welcome"></p>
+        <div class="w3-third">
+            <p class="w3-margin-top" id="welcome_pre">Welcome </p>
+        </div>
+        <div class="w3-third">
+            <p class="w3-margin-top" id="welcome"></p>
+        </div>
+        <div class="w3-third">
+            <button id="post" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/sign_up';">Post</button>
+        </div>
     </div>
     <script>
         if (sessionStorage.getItem('id')) {
             $('#sign_in').hide();
             $('#sign_up').hide();
-            $('#welcome').html('Welcome ' + sessionStorage.getItem('name'));
+            $('#welcome').html(sessionStorage.getItem('name'));
         } else {
             $('#welcome').hide();
+            $('#welcome_pre').hide();
+            $('#post').hide();
         }
     </script>
 </header>
