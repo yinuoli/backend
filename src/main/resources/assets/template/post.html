@@ -1,13 +1,14 @@
-<%_.each(articles, function (article) {%>
-<div id="<%=article.id%>" class="w3-card-4 w3-margin-bottom">
-    <header class="w3-container w3-light-grey">
-        <h3><%=article.title%></h3>
+<%_.each(books, function (book) {%>
+<div data-id="<%=book.id%>" class="w3-card-4 w3-margin-top" onclick="alert('<%=book.id%>');">
+    <header class="w3-container w3-blue-gray">
+        <h3><a href="/book_detail" style="text-decoration: none">Book Title: <%=book.title%></a></h3>
     </header>
     <div class="w3-container w3-white">
-        <p><%=article.content%></p>
+        <p>Author: <%=book.author%></p>
+        <p>Price: <%=book.price%></p>
     </div>
-    <button class="w3-btn-block w3-dark-grey">view</button>
-    <button onclick="deletePost('<%=article.id%>')" class="w3-btn-block w3-dark-grey" data-id="<%=article.id%>">delete
-    </button>
+    <footer class="w3-container w3-blue-gray">
+        <button class=" w3-margin-right w3-margin-top w3-btn w3-round w3-green">Contact seller</button>
+    </footer>
 </div>
 <%});%>

@@ -5,12 +5,15 @@
     <title>Book Trader</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/w3.css">
-    <script src="js/main.js"></script>
+
+    <!--library-->
+    <script src="js/template/templates.js"></script>
     <script src="js/jquery.js"></script>
+    <script src="js/underscore.js"></script>
 </head>
 <body class="w3-light-grey">
 <header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
-    <h1 class="w3-half"><a href="/" style="text-decoration: none">Book Trader</a></h1>
+    <h1 class="w3-half"><a href="/" style=" text-decoration: none">Book Trader</a></h1>
     <div class="w3-right w3-row-padding">
         <div class="w3-half">
             <button id="sign_in" class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/login';">Sign In</button>
@@ -41,8 +44,18 @@
     </script>
 </header>
 
-<div class="w3-container">
-
+<div id="bookList" class="w3-container">
 </div>
+<script>
+    $.get("/api/book/all", function(bookList) {
+        bookList = JSON.parse(bookList);
+        var bookListPanel = window.JST.post({
+            books: bookList
+        });
+        var panel = $('#bookList');
+        panel.empty();
+        panel.append(bookListPanel);
+    });
+</script>
 </body>
 </html>
