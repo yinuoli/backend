@@ -1,15 +1,40 @@
 package api;
 
-import com.google.gson.Gson;
-import template.User.User;
 
-import template.User.User;
-import template.Constant;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import java.util.List;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 
-import template.User.UserDao;
+
+public class SendMessage(){
+
+    private String from = "";
+    private String to = "";
+    private String content = "";
+    private String host = "localhost";
+
+
+    public SendMessage(String receiver_email, String sender_email, String text){
+
+
+
+                this.from = sender_email;
+                this.to = receiver_email;
+                this.content = text;
+
+
+    }
+    public void send_msg(){
+            
+
+    }
+
+
+
+
+
+
+
+}
