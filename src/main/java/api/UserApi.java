@@ -108,6 +108,28 @@ public class UserApi {
         return result;
     }
 
+    @Path("/get_user/{user_id}")
+    @GET
+    public String getUserById(@PathParam("user_id") String userId) {
+        String result;
+        try {
+            User user = userDao.getUserById(userId);
+            if (!user.validate()) {
+                throw new Exception();
+            }
+            user.setPassword("null");
+            Gson gson = new Gson();
+            result = gson.toJson(user);
+            if (result == null) {
+                throw new NullPointerException();
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            return Constant.FAIL;
+        }
+        return result;
+    }
+
     public void setDao(UserDao userDao, BookDao bookDao) {
         this.userDao = userDao;
         this.bookDao = bookDao;
