@@ -2,9 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/w3.css">
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery.js"></script>
 </head>
-<body>
+<body class="w3-light-grey">
+<header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
+    <h1 class="w3-half"><a href="/" style="text-decoration: none">Book Trader</a></h1>
+</header>
 
+<div class="w3-container">
+    <div class="w3-container">
+        <h2>Post a New Book</h2>
+        <p>and make some money</p>
+    </div>
+    <form id="post_book" class="w3-container w3-animate-left" onsubmit="register(event)">
+        <input name="title" placeholder="Book Title" class="w3-input w3-border w3-round-large w3-margin-top" type="text" required>
+
+        <input name="author" placeholder="Author" class="w3-input w3-border w3-round-large w3-margin-top" type="text" required>
+
+        <input name="code" placeholder="ISBN" class="w3-input w3-border w3-round-large w3-margin-top" type="text" required>
+
+        <input name="price" placeholder="Price" class="w3-input w3-border w3-round-large w3-margin-top" type="number" step="0.01" min="0" required>
+
+        <textarea name="description" rows="5" cols="51" placeholder="Description goes here" class="w3-border w3-round-large w3-margin-top" type="text" maxlength="255" required></textarea>
+
+        <br>
+
+        <button class="w3-btn w3-green w3-round w3-margin-top">Post</button>
+        <script>
+            function register(event) {
+                event.preventDefault();
+                var data = getFormData($('#post_book'));
+                data = JSON.parse(data);
+                data.seller = sessionStorage.getItem('id');
+                data = JSON.stringify(data);
+                $.post("/api/book/post", data, function(result) {
+                    if (result === 'SUCCESS') {
+                        window.location.href = '../';
+                    } else {
+                        alert("please try again");
+                    }
+                });
+            }
+        </script>
+    </form>
+</div>
 </body>
 </html>

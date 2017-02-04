@@ -4,48 +4,44 @@
     <meta charset="UTF-8">
     <title>Book Trader</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../css/w3.css">
+    <link rel="stylesheet" href="../css/w3.css">
 </head>
 <body class="w3-light-grey">
-	<header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
-	    <h1 class="w3-half">Book Trader</h1>
-	    <div class="w3-right w3-row-padding">
-	        <div class="w3-half">
-	            <button class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/login';">Sign In</button>
-	        </div>
-	        <div class="w3-half">
-	            <button class="w3-btn w3-green w3-round w3-margin-top w3-small" onclick="window.location.href = '/sign_up';">Sign Up</button>
-	        </div>
-	    </div>
-	    <script>
-	        if (sessionStorage.getItem('id')) {
-	            window.location.href = '../';
-	        }
-	    </script>
-	</header>
-	<br>
-	<br>
-	<div class="w3-row-padding">
+<header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
+    <h1 class="w3-half"><a href="/" style="text-decoration: none">Book Trader</a></h1>
+</header>
+<br>
+<br>
+<div class="w3-row-padding">
 
-		<div class="w3-half">
-          <img src="" alt="imageofbook" class="w3-image w3-card-4">
-		</div>
+    <div class="w3-half">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/51QdG2avTDL._AC_UL320_SR246,320_.jpg" alt="imageofbook" class="w3-image w3-card-4">
+    </div>
 
-		<div class="w3-half">
-		  <h1>Book Title</h1>
-		  <table class="w3-table-all w3-hoverable" style="width:auto">
-		  <tr><td>Author</td><td><!-- author name --></td></tr>
-		  <tr><td>Price</td><td><!-- $$$ --></td></tr>
-		  <tr><td>ISBN</td><td><!-- ISBN code --></td></tr>
-		  </table>
-		  <p>
-		  Posted by <a href="/" target="_blank">[seller's username]</a>
-		  </p>
-		  <h4> Description </h4>
-		  <p>
-		  <!-- Description of the book (written by seller) -->
-		  </p>
-		</div>
-	</div>
+    <div class="w3-half">
+        <h1>Book Title</h1>
+        <table class="w3-table-all w3-hoverable" style="width:auto">
+            <tr>
+                <td>Author</td>
+                <td><!-- author name --></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><!-- $$$ --></td>
+            </tr>
+            <tr>
+                <td>ISBN</td>
+                <td><!-- ISBN code --></td>
+            </tr>
+        </table>
+        <p>
+            Posted by <a href="/" target="_blank">[seller's username]</a>
+        </p>
+        <h4> Description </h4>
+        <p>
+            <!-- Description of the book (written by seller) -->
+        </p>
+    </div>
+</div>
 </body>
 </html>

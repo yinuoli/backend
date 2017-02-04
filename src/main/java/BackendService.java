@@ -23,6 +23,7 @@ public class BackendService extends Application<Configuration> {
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/login", "login.html", "login"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/sign_up", "register.html", "register"));
         bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/book_detail", "postDetail.html", "postDetail"));
+        bootstrap.addBundle(new AssetsBundle("/assets/pages/", "/post", "posts.html", "post"));
     }
 
     @Override

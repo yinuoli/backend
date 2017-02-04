@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/w3.css">
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery.js"></script>
 </head>
-<body>
+<body class="w3-light-grey">
+<header class="w3-indigo w3-padding-4 w3-padding-left w3-row">
+    <h1 class="w3-half"><a href="/" style="text-decoration: none">Book Trader</a></h1>
+    <script>
+        if (sessionStorage.getItem('id')) {
+            window.location.href = '../';
+        }
+    </script>
+</header>
 
+<div class="w3-container">
+    <div class="w3-container">
+        <h2>Sign in to Book Trader</h2>
+    </div>
+    <form id="login_form" class="w3-container w3-animate-left" onsubmit="login(event)">
+        <input name="email" placeholder="E-mail" class="w3-input w3-border w3-round-large w3-margin-top" type="email" required>
+
+        <input name="password" placeholder="password" class="w3-input w3-border w3-round-large w3-margin-top"
+               type="password" required>
+
+        <button class="w3-btn w3-green w3-round w3-margin-top">Sign in</button>
+        <script>
+            function login(event) {
+                event.preventDefault();
+                var data = getFormData($('#login_form'));
+                $.post("/api/user/login", data, function(result) {
+                    if (result !== 'FAIL') {
+                        var user = JSON.parse(result);
+                        sessionStorage.setItem('id', user.id);
+                        sessionStorage.setItem('name', user.name);
+                        window.location.href = '../';
+                    } else {
+                        alert('please try again');
+                    }
+                });
+            }
+        </script>
+    </form>
+    <div class="w3-container w3-animate-bottom">
+        <p>Don't have an account? Create one now</p>
+        <button class="w3-btn w3-amber w3-round w3-margin-top">Sign Up</button>
+    </div>
+</div>
 </body>
 </html>

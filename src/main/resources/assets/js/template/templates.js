@@ -10,9 +10,7 @@ with (obj) {
 _.each(books, function (book) {;
 __p += '\r\n<div data-id="' +
 ((__t = (book.id)) == null ? '' : __t) +
-'" class="w3-card-4 w3-margin-top" onclick="alert(\'' +
-((__t = (book.id)) == null ? '' : __t) +
-'\');">\r\n    <header class="w3-container w3-blue-gray">\r\n        <h3><a href="/book_detail" style="text-decoration: none">Book Title: ' +
+'" class="w3-card-4 w3-margin-top">\r\n    <header class="w3-container w3-blue-gray">\r\n        <h3><a href="/book_detail" style="text-decoration: none">Book Title: ' +
 ((__t = (book.title)) == null ? '' : __t) +
 '</a></h3>\r\n    </header>\r\n    <div class="w3-container w3-white">\r\n        <p>Author: ' +
 ((__t = (book.author)) == null ? '' : __t) +
